@@ -1,0 +1,12 @@
+---
+- name: Cron NTP
+  hosts: payment-web-01
+  user: ec2-user
+  sudo: yes
+
+- name: Add new cron
+  cron: >
+    name="check dirs"
+    minute="0"
+    hour="5,2"
+    job="ls -alh > /dev/null"

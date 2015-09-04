@@ -1,0 +1,9 @@
+---
+- name: ossec - restart agent
+  command: ./bin/ossec-control restart chdir={{ ossec.install_dir }}
+  tags: ossec
+
+- name: ossec - restart server
+  command: ./bin/ossec-control restart chdir={{ ossec.install_dir }}
+  delegate_to: "{{ ossec.server }}"
+  tags: ossec

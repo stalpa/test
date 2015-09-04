@@ -1,0 +1,10 @@
+---
+# vars file for openssh
+opensshd_init_name:
+  RedHat: sshd
+
+opensshd_default_Subsystem:
+  sftp:
+    RedHat: /usr/libexec/openssh/sftp-server
+
+

@@ -1,0 +1,3 @@
+# file: roles/mail/tasks/main.yml
+
+- include: postfix.yml

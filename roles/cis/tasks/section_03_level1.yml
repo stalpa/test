@@ -1,0 +1,163 @@
+---
+  - name: 3.1 Set Daemon umask (Scored)
+    lineinfile: >
+      dest=/etc/sysconfig/init
+      state=present
+      regexp=^umask
+      line="umask 027"
+    tags:
+      - scored
+      - section3.1
+
+  - name: 3.2 Remove X Windows (runlevel 3) (Scored)
+    lineinfile: >
+      dest=/etc/inittab
+      state=present
+      regexp="^id:"
+      line="id:3:initdefault:"
+    tags:
+      - scored
+      - section3.2
+
+  - name: 3.2 Remove X Windows (remove package group) (Scored)
+    yum: >
+      name=xorg-x11-server-common
+      state=absent
+    tags:
+      - scored
+      - section3.2
+
+  - name: 3.3 Disable Avahi Server (check if installed) (Scored)
+    stat: path=/etc/init.d/avahi-daemon
+    register: avahi_service
+    tags:
+      - scored
+      - section3.3
+
+  - name: 3.3 Disable Avahi Server (disable service) (Scored)
+    service: >
+      name=avahi-daemon
+      state=stopped
+      enabled=no
+    when: avahi_service.stat.exists
+    tags:
+      - scored
+      - section3.3
+
+  - name: 3.4 Check to see if cups daemon is installed (Not Scored)
+    stat: path=/etc/init.d/cups
+    register: cups_service
+    tags:
+      - notscored
+      - section3.4
+
+  - name: 3.4 Disable Print Server - CUPS (Not Scored)
+    service: >
+      name=cups
+      state=stopped
+      enabled=no
+    ignore_errors: yes
+    when: cups_service.stat.exists
+    tags:
+      - notscored
+      - section3.4
+
+  - name: 3.5 Remove DHCP Server (Scored)
+    yum: >
+      name=dhcp
+      state=absent
+    tags:
+      - scored
+      - section3.5
+
+  - name: 3.6 Configure Network Time Protocol (ipv4) (Scored)
+    yum: >
+      pkg=ntp
+      state=absent
+    when: ntp_client|bool
+    tags:
+      - scored
+      - section3.6
+
+  - name: 3.6 Configure Network Time Protocol (ipv4) (Scored)
+    yum: >
+      pkg=ntpdate
+      state=installed
+    when: ntp_client|bool
+    tags:
+      - scored
+      - section3.6
+
+  - name: Configure NTP Cron (ipv4) (Custom)
+    cron: >
+      name="Time synchronization"
+      minute="*/5"
+      job="/usr/sbin/ntpdate 172.16.20.14 2>1 > /dev/null"
+      state=present
+    tags:
+      - section3.6
+
+  - name: 3.7 Remove LDAP (Not Scored)
+    yum: >
+      name=openldap-clients
+      state=absent
+    when: ldap_client|bool
+    tags:
+      - notscored
+      - section3.7
+
+  - name: 3.7 Remove LDAP (Not Scored)
+    yum: >
+      name=openldap-servers
+      state=absent
+    when: ldap_server|bool
+    tags:
+      - notscored
+      - section3.7
+
+  - name: 3.8 Disable NFS and RPC (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.9 Remove DNS Server (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.10 Remove FTP Server (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.11 Remove HTTP Server (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.12 Remove Dovecot (IMAP and POP3 services) (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.13 Remove Samba (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.14 Remove HTTP Proxy Server (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.15 Remove SNMP Server (Not Scored)
+    debug: msg="*** Do not perform any actions."
+
+  - name: 3.16 Configure Mail Transfer Agent for Local-Only Mode (Scored)
+    yum: >
+      name=postfix
+      state=present
+    tags:
+      - scored
+      - section3.16
+
+  - name: 3.16 Configure Mail Transfer Agent for Local-Only Mode (Scored)
+    lineinfile: >
+      backup=yes 
+      state=present 
+      dest=/etc/postfix/main.cf
+      backrefs=yes
+      regexp="^inet_interfaces"
+      line="inet_interfaces = localhost"
+    ignore_errors: yes
+    tags:
+      - scored
+      - section3.16
+
+

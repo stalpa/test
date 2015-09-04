@@ -1,0 +1,9 @@
+---
+- hosts: payment-test-01
+  user: ec2-user
+  tasks:
+  - include: /etc/ansible/pkg_apache_install.yml
+
+  - name: Check apache service
+    service: name={{ package_name }} state=started
+    sudo: yes

@@ -1,0 +1,39 @@
+# This file contains the auditctl rules that are loaded
+# whenever the audit daemon is started via the initscripts.
+# The rules are simply the parameters that would be passed
+# to auditctl.
+
+# First rule - delete all
+-D
+
+# Increase the buffers to survive stress events.
+# Make this bigger for busy systems
+-b 320
+
+# Feel free to add below this line. See auditctl man page
+-a exclude,always -F msgtype=CWD
+
+# 10.2.2 All actions taken by any individual with root or administrative privileges
+-a exit,always -S all -F euid=0 -F perm=wxa -k root
+
+# 10.2.3 Access to all audit trails
+-a always,exit -S all -F dir=/var/log/audit -F perm=wra -k audit-logs
+-w /var/log/secure -p wra -k logs
+-w /var/log/messages -p wra -k logs
+-w /var/log/dmesg -p wra -k logs
+-w /var/log/cron -p wra -k logs
+-w /var/log/maillog -p wra -k logs
+
+# 10.2.4 Invalid logical access attempts
+-a always,exit -F arch=b64 -S all -F exit=-13 -k access
+
+# 10.2.7 Creation and deletion of system level objects
+-a always,exit -S all -F dir=/etc -F perm=wa -k system
+-a always,exit -S all -F dir=/boot -F perm=wa -k system
+-a always,exit -S all -F dir=/usr/lib -F perm=wa -k system
+-a always,exit -S all -F dir=/bin -F perm=wa -k system
+-a always,exit -S all -F dir=/lib -F perm=wa -k system
+-a always,exit -S all -F dir=/lib64 -F perm=wa -k system
+-a always,exit -S all -F dir=/sbin -F perm=wa -k system
+-a always,exit -S all -F dir=/usr/bin -F perm=wa -k system
+-a always,exit -S all -F dir=/usr/sbin -F perm=wa -k system

@@ -1,0 +1,6 @@
+> ansible vpc -m replace -a "dest=/etc/rsyslog.conf regexp='#*.* @@remote-host:514' replace='*.*  @@172.16.20.17:514'" -b
+> ansible vpc -m replace -a "dest=/etc/rsyslog.conf regexp='*.*  @@172.16.20.17:514' replace='#*.* @@remote-host:514'" -b 
+> ansible vpc -m replace -a "dest=/etc/ssh/sshd_config regexp='#MaxAuthTries 6' replace='MaxAuthTries 4'" -b
+> ansible payment-db-01 -m shell -a 'yum --security check-update'
+> ansible payment-nat -m shell -a 'yum -y --security update-minimal' -b
+

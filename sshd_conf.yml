@@ -1,0 +1,8 @@
+---
+- name: Install and Configure OpenSSH
+  hosts: payment-websrv
+  user: ec2-user
+  sudo: yes
+
+  roles:
+    - role: openssh

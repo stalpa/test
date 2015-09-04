@@ -1,0 +1,37 @@
+configure_ossec: yes
+
+
+
+# Options:
+#   yes: configure rsyslog to receive remote logs from other servers
+#   no: do not configure rsyslog to receive remote logs from other servers
+rsyslog_host: no
+
+
+# ----------------------------------------------------------------------------
+# WARNING
+# THIS SECTION IS HAZARDOUS TO PRODUCTION SERVERS.
+# ----------------------------------------------------------------------------
+# Options:
+#   yes: disable/uninstall these services to meet CIS requirements
+#   no: do not alter these services from their current statuc
+dns: no
+dovecot: no
+ftp: no
+httpd: no
+ldap_client: no
+ldap_server: no
+nfs: no
+samba: no
+snmp: no
+squid: no
+ntp_client: yes
+
+enable_iptables: no
+
+opensshd_PermitRootLogin: no
+
+lock_inactive: no
+
+verify_find: no
+verify_rpm: no

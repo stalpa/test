@@ -1,0 +1,13 @@
+---
+### OSSEC
+#
+# Default variables for OSSEC HIDS clients
+ossec:
+   tarball: ossec-binary.tar
+   install_dir: /var/ossec
+   service: /bin/ossec-control
+   untar_dir: ossec-hids-2.8.1
+   tmp_dir: /opt
+   
+   # IP Address of Payment VPC OSSEC server
+   server: 172.16.20.16

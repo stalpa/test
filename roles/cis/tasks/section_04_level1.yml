@@ -1,0 +1,227 @@
+---
+  - name: 4.1.1 Disable IP Forwarding (Scored)
+    sysctl: >
+      name=net.ipv4.ip_forward
+      value=0
+      state=present
+    tags:
+      - scored
+      - section4.1
+      - section4.1.1
+
+  - name: 4.1.2 Disable Send Packet Redirects (Scored)
+    sysctl: >
+      name=net.ipv4.conf.all.send_redirects
+      value=0
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.1
+      - section4.1.2
+
+  - name: 4.1.2 Disable Send Packet Redirects (Scored)
+    sysctl: >
+      name=net.ipv4.conf.default.send_redirects
+      value=0
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.1
+      - section4.1.2
+
+  - name: 4.2.1 Disable Source Routed Packet Acceptance (Scored)
+    sysctl: >
+      name=net.ipv4.conf.all.accept_source_route
+      value=0
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.1
+
+  - name: 4.2.1 Disable Source Routed Packet Acceptance (Scored)
+    sysctl: >
+      name=net.ipv4.conf.default.accept_source_route
+      value=0
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.1
+
+  - name: 4.2.2 Disable ICMP Redirect Acceptance (Scored)
+    sysctl: >
+      name=net.ipv4.conf.all.accept_redirects
+      value=0
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.2
+
+  - name: 4.2.2 Disable ICMP Redirect Acceptance (Scored)
+    sysctl: >
+      name=net.ipv4.conf.default.accept_redirects
+      value=0
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.2
+
+  - name: 4.2.4 Log Suspicious Packets (Scored)
+    sysctl: >
+      name=net.ipv4.conf.all.log_martians
+      value=1
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.4
+
+  - name: 4.2.4 Log Suspicious Packets (Scored)
+    sysctl: >
+      name=net.ipv4.conf.default.log_martians
+      value=1
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.4
+
+
+  - name: 4.2.5 Enable Ignore Broadcast Requests (Scored)
+    sysctl: >
+      name=net.ipv4.icmp_echo_ignore_broadcasts
+      value=1
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.5
+
+  - name: 4.2.6 Enable Bad Error Message Protection (Scored)
+    sysctl: >
+      name=net.ipv4.icmp_ignore_bogus_error_responses
+      value=1
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.6
+
+  - name: 4.2.8 Enable TCP SYN Cookies (Scored)
+    sysctl: >
+      name=net.ipv4.tcp_syncookies
+      value=1
+      state=present
+      ignoreerrors=true
+    tags:
+      - scored
+      - section4.2
+      - section4.2.8
+
+  - name: 4.3.1.1 Disable IPv6 Router Advertisements (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.3
+      - section4.3.1
+      - section4.3.1.1
+    
+  - name: 4.3.1.2 Disable IPv6 Redirect Acceptance (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.3
+      - section4.3.1
+      - section4.3.1.2
+
+  - name: 4.4.1 Install TCP Wrappers (Not Scored)
+    yum: >
+      name=tcp_wrappers
+      state=present
+    tags:
+      - notscored
+      - section4.4
+      - section4.4.1
+
+  - name: 4.4.2 Create /etc/hosts.allow (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.4
+      - section4.4.2
+
+  - name: 4.4.3 Verify Permissions on /etc/hosts.allow (Scored)
+    file: >
+      path=/etc/hosts.allow
+      mode=0644
+    tags:
+      - scored
+      - section4.4
+      - section4.4.3
+
+  - name: 4.4.4 Create /etc/hosts.deny (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.4
+      - section4.4.4
+
+  - name: 4.4.5 Verify Permissions on /etc/hosts.deny (Scored)
+    file: >
+      path=/etc/hosts.deny
+      mode=0644
+    tags:
+      - scored
+      - section4.4
+      - section4.4.5
+
+  - name: 4.5.1 Disable DCCP (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.5
+      - section4.5.1
+
+  - name: 4.5.2 Disable SCTP (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.5
+      - section4.5.2
+
+  - name: 4.5.3 Disable RDS (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.5
+      - section4.5.3
+
+  - name: 4.5.4 Disable TIPC (Not Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - notscored
+      - section4.5
+      - section4.5.4
+
+  - name: 4.6 Enable IPtables (Scored)
+    service: >
+      name=iptables
+      enabled=yes
+      state=started
+    when: enable_iptables
+    tags:
+      - scored
+      - section4.6

@@ -1,0 +1,19 @@
+---
+# tasks file for zabbix-agent
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+# Debian(setup)  specific tasks
+
+# RedHat(setup) specific tasks
+- include: setup-RedHat.yml
+  when: "ansible_os_family == 'RedHat'"
+
+# Common setup tasks
+- include: setup.yml
+
+# Common configuration tasks tasks
+- include: config.yml
+
+# Common service tasks
+- include: service.yml

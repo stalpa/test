@@ -1,0 +1,8 @@
+---
+- name: Install Postfix
+  hosts: payment-proxy-01
+  user: ec2-user
+  sudo: yes
+
+  roles:
+    - mail

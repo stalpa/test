@@ -1,0 +1,8 @@
+---
+- name: Install Zabbix agent
+  hosts: payment-ansible-01
+  user: ec2-user
+  sudo: yes
+
+  roles:
+    - zabbix_agent 

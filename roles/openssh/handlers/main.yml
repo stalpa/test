@@ -1,0 +1,5 @@
+---
+- name: sshd - restart service
+  service:
+    name: "{{ opensshd_init_name[ansible_os_family] }}"
+    state: restarted

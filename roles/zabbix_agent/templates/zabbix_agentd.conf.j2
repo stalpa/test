@@ -1,0 +1,128 @@
+## DO NOT CHANGE THIS FILE
+## Zabbix agent configuration file manage by Ansible
+
+############ GENERAL PARAMETERS #################
+
+### Option: PidFile
+
+PidFile=/var/run/zabbix/zabbix_agentd.pid
+
+### Option: LogFile
+
+LogFile=/var/log/zabbix/zabbix_agentd.log
+
+### Option: LogFileSize
+
+LogFileSize=1
+
+### Option: DebugLevel
+
+DebugLevel=3
+
+### Option: SourceIP
+
+#SourceIP=
+
+### Option: EnableRemoteCommands
+
+EnableRemoteCommands=0
+
+### Option: LogRemoteCommands
+
+LogRemoteCommands=0
+
+
+##### Passive checks related
+
+### Option: Server
+
+Server=172.16.20.15
+
+### Option: ListenPort
+
+ListenPort=10050
+
+### Option: ListenIP
+
+ListenIP=0.0.0.0
+
+### Option: StartAgents
+
+StartAgents={{ zabbix_agent_config_start_agents }}
+
+##### Active checks related
+
+ServerActive=
+
+### Option: Hostname
+
+#Hostname=
+
+### Option: HostnameItem
+
+HostnameItem=system.hostname
+
+### Option: HostMetadata
+
+#HostMetadata=
+
+### Option: HostMetadataItem
+
+#HostMetadataItem=
+
+### Option: RefreshActiveChecks
+
+RefreshActiveChecks=120
+
+### Option: BufferSend
+
+BufferSend=5
+
+### Option: BufferSize
+
+BufferSize=100
+
+### Option: MaxLinesPerSecond
+
+MaxLinesPerSecond=100
+
+
+############ ADVANCED PARAMETERS #################
+
+### Option: Alias
+### Option: Timeout
+
+Timeout=3
+
+### Option: AllowRoot
+
+AllowRoot=0
+
+### Option: User
+
+User=zabbix
+
+### Option: Include
+
+Include=/etc/zabbix/zabbix_agentd.d/
+
+####### USER-DEFINED MONITORED PARAMETERS #######
+
+### Option: UnsafeUserParameters
+
+UnsafeUserParameters=0
+
+### Option: UserParameter
+
+#UserParameter=
+
+####### LOADABLE MODULES #######
+
+### Option: LoadModulePath
+
+LoadModulePath=${libdir}/modules
+
+### Option: LoadModule
+
+#LoadModule=
+

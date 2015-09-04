@@ -1,0 +1,43 @@
+# file: roles/mailserver/tasks/postfix.yml
+
+- name: mailx | postfix | postfix and mailx packages are installed
+  yum: name={{ item }} state=present
+  with_items:
+    - mailx
+    - postfix
+    - stunnel
+
+- name: check for updates
+  yum : name={{ item }} state=latest
+  with_items:
+    - openssl
+
+- name: Default mta change to postfix
+  shell: /usr/sbin/alternatives --set mta /usr/sbin/sendmail.postfix
+
+- name: Stop sendmali service
+  service: name=sendmail state=stopped
+
+- name: Copy stunnel config file
+  copy: src=postfix/stunnel.conf dest=/etc/stunnel/ mode=0644
+
+- name: Run stunnel 
+  shell: stunnel /etc/stunnel/stunnel.conf
+  ignore_errors: yes
+
+- name: Copy postfix main.cf config file
+  copy: src=postfix/main.cf dest=/etc/postfix/ mode=0644
+  notify:
+    - restart postfix
+
+- name: Copy postfix sasl_passwd file 
+  copy: src=postfix/sasl_passwd.db dest=/etc/postfix/ mode=0600
+  notify:
+    - restart postfix
+
+- name: Copy postfix sender_dependent_relayhost file
+  copy: src=postfix/sender_dependent_relayhost.db dest=/etc/postfix/ mode=0600
+  notify:
+    - restart postfix
+
+

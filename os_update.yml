@@ -1,0 +1,7 @@
+- hosts: payment-test-01
+  tasks:
+
+  - name: upgrade all packages
+    yum: name=* state=latest
+    sudo: yes
+

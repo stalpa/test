@@ -1,0 +1,64 @@
+# production systems
+
+[localhost]
+localhost ansible_connection=local
+payment-proxy-01 ansible_ssh_host=52.2.158.135
+
+[payment-lbsrv]
+payment-lb-01 ansible_ssh_host=172.16.2.11
+payment-lb-02 ansible_ssh_host=172.16.3.30
+payment-lb-03 ansible_ssh_host=172.16.3.50
+
+[payment-websrv]
+payment-web-01 ansible_ssh_host=172.16.11.20
+payment-web-02 ansible_ssh_host=172.16.12.20
+payment-web-03 ansible_ssh_host=172.16.12.30
+payment-web-04 ansible_ssh_host=172.16.12.40
+payment-web-05 ansible_ssh_host=172.16.11.30
+payment-web-06 ansible_ssh_host=172.16.11.40
+payment-web-07 ansible_ssh_host=172.16.12.45
+payment-web-08 ansible_ssh_host=172.16.11.50
+
+[payment-websrv:vars]	
+opensshd_PermitRootLogin=yes
+
+[pament-jumpbox]
+payment-jb-01 ansible_ssh_host=172.16.3.10
+
+[payment-kmsrv]
+payment-km-01 ansible_ssh_host=172.16.20.30
+
+[payment-dbsrv]
+payment-db-01 ansible_ssh_host=172.16.13.14
+payment-db-02 ansible_ssh_host=172.16.14.14
+
+[payment-natsrv]
+payment-nat-01 ansible_ssh_host=172.16.0.10
+payment-nat-02 ansible_ssh_host=172.16.1.10
+
+[payment-other]
+payment-deploy-01 ansible_ssh_host=172.16.20.13
+payment-gitlab-01 ansible_ssh_host=172.16.20.12
+payment-ntp-01 ansible_ssh_host=172.16.20.14
+payment-zabbix-01 ansible_ssh_host=172.16.20.15
+payment-log-01 ansible_ssh_host=172.16.20.17
+payment-nessus-01 ansible_ssh_host=172.16.20.40
+payment-build-01 ansible_ssh_host=172.16.20.132
+payment-ansible-01 ansible_ssh_host=172.16.20.11
+payment-test-01 ansible_ssh_host=172.16.20.52
+
+[payment-ossecsrv]
+payment-ossec-01 ansible_ssh_host=172.16.20.16
+
+[vpc-main:children]
+localhost
+payment-lbsrv
+payment-websrv
+payment-kmsrv
+payment-dbsrv
+payment-natsrv
+
+[vpc-main:vars]
+ntp_client=yes
+ldap_client=yes
+ldap_server=yes

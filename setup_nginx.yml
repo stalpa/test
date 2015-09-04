@@ -1,0 +1,11 @@
+- hosts: payment-test-01
+  tasks:
+
+  - name: Install nginx package
+    yum: name=nginx update_cache=yes
+    sudo: yes
+
+  - name: Starting nginx service
+    service: name=nginx state=started
+    sudo: yes
+

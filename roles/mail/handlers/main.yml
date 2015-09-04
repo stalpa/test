@@ -1,0 +1,3 @@
+# file: roles/mail/handlers/main.yml
+
+- include: postfix.yml

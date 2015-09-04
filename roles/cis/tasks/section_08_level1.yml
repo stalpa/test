@@ -1,0 +1,8 @@
+---
+  - name: 8.1 - 8.3 Set Warning Banner for Standard Login Services (Scored)
+    debug: msg="*** Not relevant."
+    tags:
+      - scored
+      - section8.1
+      - section8.2
+      - section8.3
